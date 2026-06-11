@@ -143,4 +143,8 @@ function shufflePlay() {
   .recent-grid { grid-template-columns: repeat(3, 1fr); }
   .list-header { display: none; }
 }
+@media (max-width: 480px) {
+  .recent-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .fav-toolbar { flex-wrap: wrap; gap: 8px; }
+}
 </style>

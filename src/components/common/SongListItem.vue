@@ -204,4 +204,18 @@ function handleAddToQueue() {
     grid-template-columns: 36px 44px 1fr auto 64px;
   }
 }
+@media (max-width: 480px) {
+  .song-list-item {
+    grid-template-columns: 28px 38px 1fr auto;
+    gap: 8px;
+    padding: 7px 10px;
+  }
+  .sli-duration { display: none; }
+  .sli-cover { width: 38px; height: 38px; }
+  .sli-index { width: 28px; }
+  .sli-title { font-size: 13px; }
+  .sli-artist { font-size: 11px; }
+  /* 操作按钮在小屏始终显示 */
+  .sli-actions { opacity: 1; }
+}
 </style>

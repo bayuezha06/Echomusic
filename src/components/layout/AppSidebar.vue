@@ -1,23 +1,28 @@
 <template>
   <div class="sidebar-inner">
-    <!-- Logo -->
-    <div class="logo" @click="$router.push('/')">
-      <div class="logo-icon">♪</div>
-      <span class="logo-text">EchoMusic</span>
+    <!-- Logo + 移动端关闭按钮 -->
+    <div class="logo-row">
+      <div class="logo" @click="handleNav('/')">
+        <div class="logo-icon">♪</div>
+        <span class="logo-text">EchoMusic</span>
+      </div>
+      <button class="close-sidebar-btn" @click="$emit('close')">
+        <el-icon><Close /></el-icon>
+      </button>
     </div>
 
     <!-- 主导航 -->
     <nav class="nav-section">
       <p class="nav-label">发现</p>
-      <router-link to="/" class="nav-item" :class="{ active: $route.path === '/' }">
+      <router-link to="/" class="nav-item" :class="{ active: $route.path === '/' }" @click="$emit('close')">
         <el-icon><House /></el-icon>
         <span>首页</span>
       </router-link>
-      <router-link to="/discover" class="nav-item" :class="{ active: $route.path === '/discover' }">
+      <router-link to="/discover" class="nav-item" :class="{ active: $route.path === '/discover' }" @click="$emit('close')">
         <el-icon><Compass /></el-icon>
         <span>音乐库</span>
       </router-link>
-      <router-link to="/charts" class="nav-item" :class="{ active: $route.path === '/charts' }">
+      <router-link to="/charts" class="nav-item" :class="{ active: $route.path === '/charts' }" @click="$emit('close')">
         <el-icon><TrendCharts /></el-icon>
         <span>热歌榜</span>
       </router-link>
@@ -26,11 +31,11 @@
     <!-- 我的 -->
     <nav class="nav-section">
       <p class="nav-label">我的</p>
-      <router-link to="/favorites" class="nav-item" :class="{ active: $route.path === '/favorites' }">
+      <router-link to="/favorites" class="nav-item" :class="{ active: $route.path === '/favorites' }" @click="$emit('close')">
         <el-icon><StarFilled /></el-icon>
         <span>我的收藏</span>
       </router-link>
-      <router-link to="/profile" class="nav-item" :class="{ active: $route.path === '/profile' }">
+      <router-link to="/profile" class="nav-item" :class="{ active: $route.path === '/profile' }" @click="$emit('close')">
         <el-icon><User /></el-icon>
         <span>个人中心</span>
       </router-link>
@@ -80,7 +85,10 @@
 <script setup>
 import { usePlaylistStore } from '@/stores/playlist'
 import { computed, ref } from 'vue'
+import { useRouter } from 'vue-router'
 
+const emit = defineEmits(['close'])
+const router = useRouter()
 const playlistStore = usePlaylistStore()
 const showCreate = ref(false)
 const newName = ref('')
@@ -89,6 +97,11 @@ const totalDays = computed(() => {
   const start = new Date('2024-01-01')
   return Math.floor((Date.now() - start) / 86400000)
 })
+
+function handleNav(path) {
+  router.push(path)
+  emit('close')
+}
 
 function handleCreate() {
   const name = newName.value.trim()
@@ -108,11 +121,39 @@ function handleCreate() {
   overflow-y: auto;
 }
 
+.logo-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px 20px 20px;
+  flex-shrink: 0;
+}
+
+.close-sidebar-btn {
+  width: 36px;
+  height: 36px;
+  background: var(--bg-hover);
+  border: none;
+  border-radius: 50%;
+  color: var(--text-secondary);
+  cursor: pointer;
+  display: none; /* 桌面端隐藏 */
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+.close-sidebar-btn:hover { color: var(--text-primary); }
+
+@media (max-width: 768px) {
+  .close-sidebar-btn { display: flex; }
+}
+
 .logo {
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 0 20px 24px;
   cursor: pointer;
   flex-shrink: 0;
 }

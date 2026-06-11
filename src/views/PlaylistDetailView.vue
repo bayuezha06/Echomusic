@@ -185,9 +185,15 @@ function formatPlayCount(n) {
 .empty-state .el-icon { font-size: 48px; }
 
 @media (max-width: 700px) {
-  .pl-hero { flex-direction: column; }
-  .pl-cover { width: 140px; height: 140px; }
+  .pl-hero { flex-direction: column; align-items: center; text-align: center; }
+  .pl-cover { width: 160px; height: 160px; }
   .pl-name { font-size: 22px; }
+  .pl-actions { justify-content: center; }
+  .pl-tags { justify-content: center; }
   .list-header { display: none; }
+}
+@media (max-width: 480px) {
+  .pl-cover { width: 130px; height: 130px; }
+  .pl-name { font-size: 20px; }
 }
 </style>

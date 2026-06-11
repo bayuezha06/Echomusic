@@ -306,4 +306,20 @@ function formatPlayCount(n) {
   .playlists-grid { grid-template-columns: repeat(3, 1fr); }
   .songs-grid { grid-template-columns: repeat(2, 1fr); }
 }
+@media (max-width: 480px) {
+  .hero-banner {
+    padding: 20px 16px;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+    align-items: center;
+  }
+  .hero-title { font-size: 22px; }
+  .hero-desc { margin-bottom: 16px; }
+  .hero-actions { justify-content: center; }
+  .vinyl { width: 120px; height: 120px; }
+  .playlists-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .songs-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .content-section { margin-bottom: 24px; }
+}
 </style>

@@ -403,4 +403,19 @@ onMounted(() => {
   .charts-layout { grid-template-columns: 1fr; }
   .hot-list-col { max-height: 500px; overflow-y: auto; }
 }
+@media (max-width: 480px) {
+  .hot-item {
+    grid-template-columns: 28px 38px 1fr auto;
+    gap: 8px;
+    padding: 8px 12px;
+  }
+  /* 隐藏趋势图标在极小屏 */
+  .hi-trend { display: none; }
+  .hi-plays { font-size: 11px; }
+  .rank { font-size: 13px; }
+  .hi-cover { width: 38px; height: 38px; }
+  .chart-box { height: 160px; }
+  .chart-box-sm { height: 150px; }
+  .chart-box-bar { height: 200px; }
+}
 </style>

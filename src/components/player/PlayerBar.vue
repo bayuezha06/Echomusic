@@ -132,6 +132,32 @@
 
     <!-- 频谱可视化 -->
     <canvas ref="vizCanvas" class="visualizer" width="120" height="40" />
+
+    <!-- 移动端专用：右侧控制按钮 -->
+    <div class="mobile-controls">
+      <button class="icon-btn" @click="playerStore.playPrev()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/>
+        </svg>
+      </button>
+      <button class="play-pause-btn" @click="playerStore.togglePlay()">
+        <el-icon v-if="playerStore.isPlaying"><VideoPause /></el-icon>
+        <el-icon v-else><VideoPlay /></el-icon>
+      </button>
+      <button class="icon-btn" @click="playerStore.playNext()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/>
+        </svg>
+      </button>
+    </div>
+
+    <!-- 移动端进度条 -->
+    <div class="mobile-progress">
+      <div
+        class="mobile-progress-fill"
+        :style="{ width: (playerStore.progress * 100) + '%' }"
+      />
+    </div>
   </div>
 </template>
 
@@ -401,13 +427,88 @@ onUnmounted(() => {
   border-radius: 4px;
 }
 
+/* 移动端控制按钮：桌面端隐藏 */
+.mobile-controls { display: none; }
+.mobile-progress { display: none; }
+
 @media (max-width: 900px) {
   .visualizer { display: none; }
   .controls-right { width: auto; }
   .song-info { width: 200px; }
 }
 @media (max-width: 680px) {
-  .mode-btn, .skip-btn, .volume-wrap { display: none; }
+  .mode-btn, .volume-wrap { display: none; }
   .song-info { width: 140px; }
+}
+
+/* ===== 移动端紧凑播放器 ===== */
+@media (max-width: 768px) {
+  .player-bar {
+    height: var(--mobile-player-height);
+    padding: 0 12px;
+    gap: 10px;
+    /* 位于底部导航之上 */
+    bottom: var(--bottom-nav-height);
+    position: sticky;
+    flex-wrap: nowrap;
+  }
+
+  /* 隐藏桌面端中控区 */
+  .controls-center { display: none; }
+  /* 隐藏右侧 */
+  .controls-right { display: none; }
+  .visualizer { display: none; }
+
+  /* 歌曲信息区铺满剩余空间 */
+  .song-info {
+    flex: 1;
+    width: auto;
+    cursor: pointer;
+  }
+
+  .cover-box {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+  }
+
+  .song-title { font-size: 13px; }
+  .song-artist { font-size: 11px; }
+
+  /* 移动端：右侧显示上一首/播放暂停/下一首 */
+  .mobile-controls {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  .mobile-controls .icon-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 17px;
+  }
+
+  .mobile-controls .play-pause-btn {
+    width: 38px;
+    height: 38px;
+    font-size: 18px;
+  }
+
+  /* 进度条贴在播放器底部 */
+  .mobile-progress {
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: rgba(255,255,255,0.08);
+  }
+  .mobile-progress-fill {
+    height: 100%;
+    background: var(--primary-light);
+    transition: width 0.2s linear;
+  }
 }
 </style>

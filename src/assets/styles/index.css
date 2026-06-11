@@ -38,6 +38,9 @@
 
   --player-height: 88px;
   --sidebar-width: 240px;
+  --bottom-nav-height: 60px;
+  --mobile-header-height: 52px;
+  --mobile-player-height: 64px;
 }
 
 /* 全局重置 */
@@ -88,6 +91,13 @@ html, body {
   height: calc(100vh - var(--player-height));
 }
 
+/* 移动端主布局：顶栏 + 播放器 + 底导 */
+@media (max-width: 768px) {
+  .main-layout {
+    height: calc(100vh - var(--mobile-header-height) - var(--mobile-player-height) - var(--bottom-nav-height));
+  }
+}
+
 .sidebar {
   width: var(--sidebar-width) !important;
   background: var(--bg-surface);
@@ -96,6 +106,13 @@ html, body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+
+/* 移动端侧边栏默认隐藏（由 App.vue scoped 样式控制抽屉） */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 260px !important;
+  }
 }
 
 .content-area {
@@ -111,6 +128,16 @@ html, body {
   overflow-x: hidden;
   padding: 24px !important;
   background: var(--bg-base);
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 16px !important;
+  }
+  .page-title { font-size: 22px !important; }
+  .page-header { margin-bottom: 18px !important; }
+  .section-title { font-size: 16px !important; }
+  .btn-primary, .btn-ghost { padding: 9px 18px; font-size: 13px; }
 }
 
 /* 页面标题 */

@@ -308,4 +308,13 @@ onMounted(() => {
   .profile-hero { flex-direction: column; text-align: center; }
   .user-stats { justify-content: center; }
 }
+@media (max-width: 480px) {
+  .profile-hero { padding: 20px 16px; gap: 16px; }
+  .avatar { width: 72px; height: 72px; }
+  .user-name { font-size: 20px; }
+  .stat-num { font-size: 18px; }
+  .user-stats { gap: 14px; }
+  .recent-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .chart-box { height: 170px; }
+}
 </style>
